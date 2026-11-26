@@ -29,7 +29,6 @@ public class servidor {
                 System.out.println("cliente conectado: "
                         + cliente.getInetAddress());
 
-                // generamos un numero aleatorio entre 1 y 100
                 Random aleatorio = new Random();
                 int numeroSecreto = aleatorio.nextInt(100) + 1;
 
@@ -37,9 +36,22 @@ public class servidor {
 
                 String mensaje = entrada.readLine();
 
-                System.out.println("mensaje recibido: " + mensaje);
+                int numero = Integer.parseInt(mensaje);
 
-                salida.println("numero recibido: " + mensaje);
+                // comparamos el numero recibido con el numero secreto
+                if (numero < numeroSecreto) {
+
+                    salida.println("MAYOR");
+
+                } else if (numero > numeroSecreto) {
+
+                    salida.println("MENOR");
+
+                } else {
+
+                    salida.println("ACIERTO");
+
+                }
 
             }
 
