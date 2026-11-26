@@ -38,10 +38,21 @@ public class servidor {
 
                 String mensaje;
 
-                // recibimos los intentos del cliente
                 while ((mensaje = entrada.readLine()) != null) {
 
-                    int numero = Integer.parseInt(mensaje);
+                    int numero;
+
+                    // comprobamos que el mensaje sea un numero
+                    try {
+
+                        numero = Integer.parseInt(mensaje.trim());
+
+                    } catch (NumberFormatException e) {
+
+                        salida.println("ERR Comando no válido");
+                        continue;
+
+                    }
 
                     intentos++;
 

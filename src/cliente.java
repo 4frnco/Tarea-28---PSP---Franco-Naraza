@@ -25,7 +25,6 @@ public class cliente {
 
             System.out.println("conectado al servidor");
 
-            // repetimos hasta acertar el numero
             while (true) {
 
                 System.out.print("introduce un numero del 1 al 100: ");
