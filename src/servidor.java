@@ -1,6 +1,9 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class servidor {
 
@@ -12,10 +15,18 @@ public class servidor {
 
             System.out.println("servidor iniciado en el puerto " + PUERTO);
 
-            try (Socket cliente = servidor.accept()) {
+            try (Socket cliente = servidor.accept();
+                 BufferedReader entrada = new BufferedReader(
+                         new InputStreamReader(cliente.getInputStream(),
+                                 StandardCharsets.UTF_8))) {
 
                 System.out.println("cliente conectado: "
                         + cliente.getInetAddress());
+
+                // recibimos el mensaje del cliente
+                String mensaje = entrada.readLine();
+
+                System.out.println("mensaje recibido: " + mensaje);
 
             }
 
