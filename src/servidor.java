@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.Random;
 
 public class servidor {
 
@@ -28,11 +29,16 @@ public class servidor {
                 System.out.println("cliente conectado: "
                         + cliente.getInetAddress());
 
+                // generamos un numero aleatorio entre 1 y 100
+                Random aleatorio = new Random();
+                int numeroSecreto = aleatorio.nextInt(100) + 1;
+
+                System.out.println("numero secreto generado: " + numeroSecreto);
+
                 String mensaje = entrada.readLine();
 
                 System.out.println("mensaje recibido: " + mensaje);
 
-                // enviamos una respuesta al cliente
                 salida.println("numero recibido: " + mensaje);
 
             }

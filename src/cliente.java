@@ -30,7 +30,6 @@ public class cliente {
 
             salida.println(mensaje);
 
-            // recibimos la respuesta del servidor
             String respuesta = entrada.readLine();
 
             System.out.println("servidor: " + respuesta);
