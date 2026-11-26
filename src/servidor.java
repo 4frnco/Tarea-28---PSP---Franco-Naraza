@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class servidor {
 
@@ -7,13 +8,20 @@ public class servidor {
 
     public static void main(String[] args) {
 
-        // creamos el socket del servidor
         try (ServerSocket servidor = new ServerSocket(PUERTO)) {
 
             System.out.println("servidor iniciado en el puerto " + PUERTO);
 
+            // esperamos la conexion de un cliente
+            try (Socket cliente = servidor.accept()) {
+
+                System.out.println("cliente conectado: "
+                        + cliente.getInetAddress());
+
+            }
+
         } catch (IOException e) {
-            System.out.println("eror en el servidor: " + e.getMessage());
+            System.out.println("error en el servidor: " + e.getMessage());
         }
     }
 }
