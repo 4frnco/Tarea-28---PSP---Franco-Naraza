@@ -26,21 +26,24 @@ public class cliente {
                              StandardCharsets.UTF_8), true)) {
 
             System.out.println("conectado al servidor");
+            System.out.println("adivina el numero del 1 al 100");
             System.out.println("escribe ADIOS para salir");
 
+            // mantenemos la conexion durante la partida
             while (true) {
 
-                System.out.print("introduce un numero del 1 al 100: ");
+                System.out.print("introduce un numero: ");
 
-                // comprobamos que exista una linea de entrada
                 if (!teclado.hasNextLine()) {
                     break;
                 }
 
                 String mensaje = teclado.nextLine();
 
+                // enviamos el mensaje al servidor
                 salida.println(mensaje);
 
+                // esperamos la respuesta del servidor
                 String respuesta = entrada.readLine();
 
                 if (respuesta == null) {
@@ -52,6 +55,7 @@ public class cliente {
 
                 System.out.println("servidor: " + respuesta);
 
+                // comprobamos si ha terminado la partida
                 if (respuesta.startsWith("ACIERTO")
                         || respuesta.equals("OK Hasta luego")) {
 
