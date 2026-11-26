@@ -3,7 +3,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
@@ -24,10 +26,17 @@ public class cliente {
                              StandardCharsets.UTF_8), true)) {
 
             System.out.println("conectado al servidor");
+            System.out.println("escribe ADIOS para salir");
 
             while (true) {
 
                 System.out.print("introduce un numero del 1 al 100: ");
+
+                // comprobamos que exista una linea de entrada
+                if (!teclado.hasNextLine()) {
+                    break;
+                }
+
                 String mensaje = teclado.nextLine();
 
                 salida.println(mensaje);
@@ -35,18 +44,34 @@ public class cliente {
                 String respuesta = entrada.readLine();
 
                 if (respuesta == null) {
+
+                    System.out.println("conexion cerrada por el servidor");
                     break;
+
                 }
 
                 System.out.println("servidor: " + respuesta);
 
-                if (respuesta.startsWith("ACIERTO")) {
+                if (respuesta.startsWith("ACIERTO")
+                        || respuesta.equals("OK Hasta luego")) {
+
                     break;
+
                 }
             }
 
+        } catch (ConnectException e) {
+
+            System.out.println("Servidor no disponible");
+
+        } catch (SocketException e) {
+
+            System.out.println("conexion interrumpida");
+
         } catch (IOException e) {
+
             System.out.println("error en el cliente: " + e.getMessage());
+
         }
     }
 }

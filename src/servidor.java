@@ -5,6 +5,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
@@ -36,18 +37,41 @@ public class servidor {
 
                 System.out.println("numero secreto generado: " + numeroSecreto);
 
-                String mensaje;
+                while (true) {
 
-                while ((mensaje = entrada.readLine()) != null) {
+                    String mensaje = entrada.readLine();
+
+                    // detectamos si el cliente ha cerrado la conexion
+                    if (mensaje == null) {
+
+                        System.out.println("cliente desconectado");
+                        break;
+
+                    }
+
+                    mensaje = mensaje.trim();
+
+                    if (mensaje.equalsIgnoreCase("ADIOS")) {
+
+                        salida.println("OK Hasta luego");
+                        break;
+
+                    }
 
                     int numero;
 
-                    // comprobamos que el mensaje sea un numero
                     try {
 
-                        numero = Integer.parseInt(mensaje.trim());
+                        numero = Integer.parseInt(mensaje);
 
                     } catch (NumberFormatException e) {
+
+                        salida.println("ERR Comando no válido");
+                        continue;
+
+                    }
+
+                    if (numero < 1 || numero > 100) {
 
                         salida.println("ERR Comando no válido");
                         continue;
@@ -72,10 +96,20 @@ public class servidor {
                     }
                 }
 
+            } catch (SocketException e) {
+
+                System.out.println("conexion interrumpida por el cliente");
+
+            } catch (IOException e) {
+
+                System.out.println("error de comunicacion: " + e.getMessage());
+
             }
 
         } catch (IOException e) {
+
             System.out.println("error en el servidor: " + e.getMessage());
+
         }
     }
 }
