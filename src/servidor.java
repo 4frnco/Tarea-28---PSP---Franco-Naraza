@@ -32,25 +32,33 @@ public class servidor {
                 Random aleatorio = new Random();
                 int numeroSecreto = aleatorio.nextInt(100) + 1;
 
+                int intentos = 0;
+
                 System.out.println("numero secreto generado: " + numeroSecreto);
 
-                String mensaje = entrada.readLine();
+                String mensaje;
 
-                int numero = Integer.parseInt(mensaje);
+                // recibimos los intentos del cliente
+                while ((mensaje = entrada.readLine()) != null) {
 
-                // comparamos el numero recibido con el numero secreto
-                if (numero < numeroSecreto) {
+                    int numero = Integer.parseInt(mensaje);
 
-                    salida.println("MAYOR");
+                    intentos++;
 
-                } else if (numero > numeroSecreto) {
+                    if (numero < numeroSecreto) {
 
-                    salida.println("MENOR");
+                        salida.println("MAYOR");
 
-                } else {
+                    } else if (numero > numeroSecreto) {
 
-                    salida.println("ACIERTO");
+                        salida.println("MENOR");
 
+                    } else {
+
+                        salida.println("ACIERTO en " + intentos + " intentos");
+                        break;
+
+                    }
                 }
 
             }

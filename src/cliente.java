@@ -25,14 +25,26 @@ public class cliente {
 
             System.out.println("conectado al servidor");
 
-            System.out.print("introduce un numero del 1 al 100: ");
-            String mensaje = teclado.nextLine();
+            // repetimos hasta acertar el numero
+            while (true) {
 
-            salida.println(mensaje);
+                System.out.print("introduce un numero del 1 al 100: ");
+                String mensaje = teclado.nextLine();
 
-            String respuesta = entrada.readLine();
+                salida.println(mensaje);
 
-            System.out.println("servidor: " + respuesta);
+                String respuesta = entrada.readLine();
+
+                if (respuesta == null) {
+                    break;
+                }
+
+                System.out.println("servidor: " + respuesta);
+
+                if (respuesta.startsWith("ACIERTO")) {
+                    break;
+                }
+            }
 
         } catch (IOException e) {
             System.out.println("error en el cliente: " + e.getMessage());
