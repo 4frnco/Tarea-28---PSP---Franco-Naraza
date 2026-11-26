@@ -12,7 +12,6 @@ public class servidor {
 
             System.out.println("servidor iniciado en el puerto " + PUERTO);
 
-            // esperamos la conexion de un cliente
             try (Socket cliente = servidor.accept()) {
 
                 System.out.println("cliente conectado: "
