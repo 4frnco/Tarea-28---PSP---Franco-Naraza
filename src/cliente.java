@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -14,6 +16,9 @@ public class cliente {
 
         try (Socket socket = new Socket(HOST, PUERTO);
              Scanner teclado = new Scanner(System.in);
+             BufferedReader entrada = new BufferedReader(
+                     new InputStreamReader(socket.getInputStream(),
+                             StandardCharsets.UTF_8));
              PrintWriter salida = new PrintWriter(
                      new OutputStreamWriter(socket.getOutputStream(),
                              StandardCharsets.UTF_8), true)) {
@@ -23,10 +28,12 @@ public class cliente {
             System.out.print("introduce un numero del 1 al 100: ");
             String mensaje = teclado.nextLine();
 
-            // enviamos el mensaje al servidor
             salida.println(mensaje);
 
-            System.out.println("mensaje enviado: " + mensaje);
+            // recibimos la respuesta del servidor
+            String respuesta = entrada.readLine();
+
+            System.out.println("servidor: " + respuesta);
 
         } catch (IOException e) {
             System.out.println("error en el cliente: " + e.getMessage());
